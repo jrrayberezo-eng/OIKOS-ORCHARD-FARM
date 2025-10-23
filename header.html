@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/animations.css">
+    <title>OIKOS ORCHARD AND FARM</title>
+</head>
+<body>
+    <header class="main-header">
+      <div class="header-inner">
+        <div class="logo">
+          <a href="../index.html">
+            <img src="../images/logo.svg" alt="Oikos Orchard Logo" width="40" height="40">
+            <span>OIKOS ORCHARD</span>
+          </a>
+        </div>
+
+        <nav class="main-nav">
+          <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+          </button>
+          
+          <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li class="has-submenu">
+              <a href="#">Experiences</a>
+              <ul class="submenu">
+                <li><a href="../pages/trails.html">Nature Trails</a></li>
+                <li><a href="../pages/workshops.html">Workshops</a></li>
+                <li><a href="../pages/harvest.html">Pick Your Own</a></li>
+              </ul>
+            </li>
+            <li><a href="../pages/contact.html">Contact</a></li>
+            <li><a href="../pages/reserve.html" class="cta-button">Reserve Now</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : 'YOUR_APP_ID',
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v12.0'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script src="../js/chat-bubble.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserve Slots - OIKOS ORCHARD AND FARM</title>
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./animations.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.5/dist/signature_pad.umd.min.js"></script>
+<style>
+    .back-arrow {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background-color: rgba(139, 115, 85, 0.9);
+        color: white;
+        padding: 12px;
+        border-radius: 50%;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .back-arrow:hover {
+        background-color: rgba(144, 169, 85, 0.9);
+        transform: scale(1.1);
+    }
+
+    .back-arrow svg {
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+    }
+
+    /* Add this to your existing styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    text-align: center;
+}
+
+.close-modal {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-actions {
+    margin-top: 20px;
+}
+
+.signature-container {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 15px 0;
+    background: #fff;
+}
+
+.signature-pad {
+    width: 100%;
+    height: 200px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    touch-action: none; /* Important for touch devices */
+    cursor: crosshair; /* Shows drawing cursor */
+}
+
+.signature-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.signature-label {
+    margin-top: 5px;
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+/* Add these styles in your <style> tag */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+}
+
+.close-gcash {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #666;
+}
+
+.qr-container {
+    margin: 20px 0;
+}
+
+.qr-container img {
+    max-width: 250px;
+    height: auto;
+}
+
+.btn-gcash {
+    display: inline-block;
+    background-color: #00b2e3;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-gcash:hover {
+    background-color: #0095bf;
+}
+</style>
+</head>
+<body>
+    <div class="announcement-bar">
+        <div class="announcement-content">
+            <span class="announcement-text">Ready for a unique getaway? 🌿✨ Reserve your glamping experience at Oikos Orchard & Farm today! Enjoy cozy tents, fresh air, and beautiful scenery — perfect for relaxation and adventure. 🌅 Send us a message to book your slot!</span>
+            <span class="announcement-text" aria-hidden="true">Message us directly. Slots are limited  book early and experience nature the Oikos Orchard & Farm way! 🌾</span>
+        </div>
+    </div>
+    
+<form class="nature-form" id="glamping-registration">
+    <div class="form-header">
+        <div class="logo-wrapper">
+            <img src="./oikos.jpg" alt="" class="form-logo">
+        </div>
+        <h2>Glamping Experience Registration</h2>
+        <p class="form-subtitle">Immerse yourself in nature's tranquility</p>
+    </div>
+
+    <div class="form-container">
+        <!-- Booking Details -->
+        <div class="form-section">
+            <div class="form-group">
+                <label for="venue">Venue</label>
+                <input id="venue" name="venue" required class="elegant-input">
+            </div>
+            
+            <div class="form-group split">
+        <div>
+            <label for="start-date">Date of Stay (From)</label>
+            <input type="date" id="start-date" name="start-date" required class="elegant-input">
+            <label for="end-date" class="sr-only">To</label>
+            <input type="date" id="end-date" name="end-date" required class="elegant-input">
+        </div>
+        <div>
+            <label for="booking-ref">Booking Reference No.</label>
+            <input type="text" id="booking-ref" name="booking-ref" 
+                   class="elegant-input"
+                   placeholder="Will be assigned upon confirmation">
+        </div>
+    </div>
+
+        <!-- Guest Information -->
+        <div class="form-section">
+            <h3>1. Guest Information</h3>
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname" required class="elegant-input">
+            </div>
+
+            <div class="form-group split">
+                <div>
+                    <label for="contact">Contact Number</label>
+                    <input type="tel" id="contact" name="contact" required class="elegant-input">
+                </div>
+                <div>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required class="elegant-input">
+                </div>
+            </div>
+
+            <div class="form-group split">
+                <div>
+                    <label for="adults">Number of Adults</label>
+                    <input type="number" id="adults" name="adults" required min="1" class="elegant-input">
+                </div>
+                <div>
+                    <label for="kids">Number of Kids</label>
+                    <input type="number" id="kids" name="kids" min="0" class="elegant-input">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="organization">Name of Organization/Company/Group (if any)</label>
+                <input type="text" id="organization" name="organization" class="elegant-input">
+            </div>
+        </div>
+
+        <!-- Accommodation Details -->
+        <div class="form-section">
+            <h3>2. Accommodation Details</h3>
+            <div class="form-group">
+                <label>Chosen Package / Tent Type</label>
+                <div class="package-options">
+                    <div class="package-option">
+                        <input type="radio" id="two-pax" name="package" value="two-pax" required>
+                        <label for="two-pax">Glamping for Two (3,500)</label>
+                    </div>
+                    <div class="package-option">
+                        <input type="radio" id="four-pax" name="package" value="four-pax">
+                        <label for="four-pax">Glamping for Four (4,200)</label>
+                    </div>
+                    <div class="package-option">
+                        <input type="radio" id="family" name="package" value="family">
+                        <label for="family">Family Tent (10,000)</label>
+                    </div>
+                    <div class="package-option">
+                        <input type="radio" id="extra-tent" name="package" value="extra-tent">
+                        <label for="extra-tent">Bring your extra tent (400 per pax)</label>
+                    </div>
+                </div>
+                <small class="form-note">* Rates are subject to change during holidays, peak seasons, or special events.</small>
+            </div>
+
+            <div class="form-group">
+                <label>Preferred Activities</label>
+                <div class="activities-grid">
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="activities[]" value="farm-tour">
+                        Farm Tour (Native Tree Walk)
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="activities[]" value="fruit-picking">
+                        Fruit Picking
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="activities[]" value="tree-planting">
+                        Tree Planting
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="activities[]" value="bonfire">
+                        Bonfire Night
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="activities[]" value="hiking">
+                        Hiking / Nature Walk
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="activities[]" value="picnic">
+                        Picnic Set Up
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="activities[]" value="videoke">
+                        Videoke Night
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="activities[]" value="waterfall">
+                        Waterfall Visit
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="other-activities">Other Activities</label>
+                    <input type="text" id="other-activities" name="other-activities" class="elegant-input">
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Details -->
+        <div class="form-section">
+            <h3>3. Payment Details</h3>
+            <div class="form-group">
+                <label>Mode of Payment</label>
+                <div class="payment-options">
+                    <label class="radio-container">
+                        <input type="radio" name="payment-mode" value="gcash" required>
+                        GCash
+                    </label>
+                    <label class="radio-container">
+                        <input type="radio" name="payment-mode" value="others">
+                        Others
+                    </label>
+                </div>
+                <input type="text" id="other-payment" name="other-payment" class="elegant-input" 
+                       placeholder="Specify other payment method" style="display: none;">
+            </div>
+
+            <div class="form-group split">
+                <div>
+                    <label for="amount-paid">Amount Paid</label>
+                    <input type="number" id="amount-paid" name="amount-paid" required class="elegant-input">
+                </div>
+                <div>
+                    <label for="amount-paid">Reference No.</label>
+                    <input type="number" id="amount-paid" name="amount-paid" required class="elegant-input">
+                </div>
+                <div>
+                    <label for="payment-date">Date of Payment</label>
+                    <input type="date" id="payment-date" name="payment-date" required class="elegant-input">
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms and Guidelines -->
+        <div class="form-section">
+            <h3>4. Terms and Guidelines</h3>
+            <div class="guidelines-container">
+                <p><strong>Please read and acknowledge the following:</strong></p>
+                <div class="guidelines-list">
+                    <label class="checkbox-container">
+                        <input type="checkbox" required name="terms[]">
+                        A. I understand that Oikos Orchard and Farm has high platforms and sloping areas, and children must be supervised at all times.
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" required name="terms[]">
+                        B. I acknowledge the presence of insects and wildlife, and will bring necessary protection.
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" required name="terms[]">
+                        C. I agree to conserve water and properly dispose of trash.
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" required name="terms[]">
+                        D. I understand staff assistance is available for facilities operation.
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" required name="terms[]">
+                        E. I will bring my own toiletries and understand toilet paper limitations.
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" required name="terms[]">
+                        F. I understand the pet policy and responsibilities.
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" required name="terms[]">
+                        G. I agree to observe quiet hours after 10PM.
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signature Section -->
+        <div class="form-section">
+            <h3>5. Signature</h3>
+            <div class="signature-container">
+                <canvas id="signaturePad" class="signature-pad"></canvas>
+                <div class="signature-actions">
+                    <button type="button" id="clearSignature" class="btn-secondary">Clear</button>
+                </div>
+                <p class="signature-label">Guest Signature</p>
+            </div>
+        </div>
+
+        <div class="form-actions">
+        <button type="submit" class="submit-btn">
+            <span>Confirm Reservation</span>
+            <svg class="btn-icon" viewBox="0 0 24 24">
+                <path d="M4 12h16m-7-7l7 7-7 7"></path>
+            </svg>
+        </button>
+    </div>
+    <a href="./Index.html" class="back-arrow">
+    <svg viewBox="0 0 24 24">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+    </svg>
+</a>
+</form>
+
+<!-- Success Modal -->
+<div class="modal" id="successModal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h2>Reservation Successful!</h2>
+    <p>Your booking reference is: <strong id="modalBookingRef"></strong></p>
+    <p>Thank you for choosing Oikos Orchard and Farm. We look forward to hosting you!</p>
+    <div class="modal-actions">
+      <button id="downloadPDF" class="btn-primary" type="button">
+        <svg class="btn-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"/>
+        </svg>
+        Download PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Add this modal HTML before the closing </body> tag -->
+<div id="gcashModal" class="modal">
+    <div class="modal-content">
+        <span class="close-gcash">&times;</span>
+        <h3>Scan GCash QR Code</h3>
+        <div class="qr-container">
+            <img src="./QRCODE1.png" alt="GCash QR Code" id="gcashQR">
+        </div>
+        <a href="gcash://app" class="btn-gcash">
+            Pay with GCash
+        </a>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const { jsPDF } = window.jspdf;
+    const form = document.getElementById("glamping-registration");
+    const modal = document.getElementById("successModal");
+    const closeModal = document.querySelector(".close-modal");
+    const downloadBtn = document.getElementById("downloadPDF");
+    const canvas = document.getElementById('signaturePad');
+    
+    // Initialize signature pad globally
+    const signaturePad = new SignaturePad(canvas, {
+        backgroundColor: 'rgb(255, 255, 255)',
+        penColor: 'rgb(0, 0, 0)',
+        minWidth: 0.5,
+        maxWidth: 2.5,
+        velocityFilterWeight: 0.7
+    });
+
+    // Resize canvas function
+    function resizeCanvas() {
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+    }
+
+    // Call resize immediately and add event listener
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Clear signature button
+    document.getElementById('clearSignature').addEventListener('click', () => {
+        signaturePad.clear();
+    });
+
+    function generatePDF() {
+        const doc = new jsPDF({ unit: "mm", format: "a4" });
+        const bookingRef = document.getElementById("booking-ref").value || 
+                          "REF" + Date.now().toString().slice(-6);
+
+        doc.setFillColor(44, 74, 60); // Oikos green
+        doc.rect(0, 0, 210, 35, "F");
+        doc.setTextColor(255, 255, 255);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(16);
+        doc.text("OIKOS ORCHARD AND FARM", 105, 15, { align: "center" });
+        doc.setFontSize(11);
+        doc.text("Glamping Reservation Form", 105, 25, { align: "center" });
+
+    // add before generatePDF()
+    function generateAllData() {
+        const fd = new FormData(form);
+        const pkgEl = document.querySelector('input[name="package"]:checked');
+        const pkgLabel = pkgEl ? (document.querySelector(`label[for="${pkgEl.id}"]`)?.innerText.trim() || pkgEl.value) : 'N/A';
+
+        const activities = Array.from(document.querySelectorAll('input[name="activities[]"]:checked'))
+            .map(i => {
+                if (i.parentElement && i.parentElement.tagName.toLowerCase() === 'label') return i.parentElement.innerText.trim();
+                const lab = document.querySelector(`label[for="${i.id}"]`);
+                return (lab ? lab.innerText : i.value).trim();
+            });
+
+        return [
+            { label: 'Venue', value: fd.get('venue') },
+            { label: 'Date of Stay (From)', value: fd.get('start-date') },
+            { label: 'Date of Stay (To)', value: fd.get('end-date') },
+            { label: 'Booking Reference No.', value: fd.get('booking-ref') },
+            { label: 'Full Name', value: fd.get('fullname') },
+            { label: 'Contact Number', value: fd.get('contact') },
+            { label: 'Email Address', value: fd.get('email') },
+            { label: 'Number of Adults', value: fd.get('adults') },
+            { label: 'Number of Kids', value: fd.get('kids') },
+            { label: 'Organization / Group', value: fd.get('organization') },
+            { label: 'Chosen Package / Tent Type', value: pkgLabel },
+            { label: 'Preferred Activities', value: activities.length ? activities.join(', ') : 'None' },
+            { label: 'Other Activities', value: fd.get('other-activities') },
+            { label: 'Mode of Payment', value: fd.get('payment-mode') },
+            { label: 'Other Payment Method', value: fd.get('other-payment') },
+            { label: 'Amount Paid', value: fd.get('amount-paid') ? `${fd.get('amount-paid')}` : '' },
+            { label: 'Date of Payment', value: fd.get('payment-date') }
+        ];
+    }
+
+        // === BODY CONTENT ===
+        let y = 45;
+        doc.setTextColor(44, 74, 60);
+        doc.setFont("helvetica", "bold");
+        doc.text(`Booking Reference: ${bookingRef}`, 20, y);
+        y += 10;
+
+        const entries = generateAllData();
+
+        entries.forEach(({ label, value }, i) => {
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(10);
+          doc.text(`${label}:`, 20, y);
+          doc.setFont("helvetica", "normal");
+          doc.setTextColor(0, 0, 0);
+          doc.text(String(value || "N/A"), 70, y, { maxWidth: 120 });
+          y += 8;
+          if (y > 260) {
+            doc.addPage();
+            y = 20;
+          }
+          doc.setTextColor(44, 74, 60);
+        });
+
+        // === TERMS & SIGNATURE ===
+        if (y > 240) {
+          doc.addPage();
+          y = 20;
+        }
+        y += 10;
+        doc.setFont("helvetica", "bold");
+        doc.text("TERMS AND AGREEMENT", 20, y);
+        y += 6;
+        doc.setLineWidth(0.2);
+        doc.line(20, y, 190, y);
+        y += 10;
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        const terms = [
+          "A. Oikos Orchard and Farm has elevated and sloping areas; children must be supervised.",
+          "B. Insects and wildlife are natural on the property — bring insect repellent.",
+          "C. Please conserve water and dispose of trash responsibly.",
+          "D. Staff can assist with hot water, appliances, and bonfire setup.",
+          "E. Bring your own toiletries (1 roll of toilet paper provided per toilet).",
+          "F. Pets are allowed at your own risk; please clean after them.",
+          "G. Quiet hours start at 10:00 PM.",
+        ];
+        terms.forEach((line) => {
+          doc.text(line, 25, y, { maxWidth: 160 });
+          y += 7;
+          if (y > 260) {
+            doc.addPage();
+            y = 20;
+          }
+        });
+
+        // Add signature section
+        y += 15;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(11);
+        doc.text("Guest Signature:", 20, y);
+
+        // Add the signature
+        if (!signaturePad.isEmpty()) {
+            try {
+                // Get signature as PNG with white background
+                const signatureData = signaturePad.toDataURL('image/png', 1.0);
+                
+                // Calculate dimensions that maintain aspect ratio
+                const signatureWidth = 60;
+                const signatureHeight = 20;
+                
+                // Position signature after the "Guest Signature:" text
+                doc.addImage(
+                    signatureData,
+                    'PNG',
+                    50,  // x position after "Guest Signature:"
+                    y - 15, // y position, slightly above the text
+                    signatureWidth,
+                    signatureHeight
+                );
+            } catch (error) {
+                console.error('Error adding signature:', error);
+            }
+        }
+
+        // Add date
+        const currentDate = new Date().toLocaleDateString();
+        doc.text("Date:", 140, y);
+        doc.setFont('helvetica', 'normal');
+        doc.text(currentDate, 155, y);
+
+        y += 14;
+        doc.setFont('helvetica', 'bold');
+        doc.text("Received by (Staff): _________________________", 20, y);
+        doc.text("Date: ___________", 140, y);
+
+        // === FOOTER ===
+        doc.setFillColor(44, 74, 60);
+        doc.rect(0, 285, 210, 12, "F");
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(9);
+        doc.text(
+          "OIKOS ORCHARD AND FARM • Glamping Reservation Confirmation",
+          105,
+          292,
+          { align: "center" }
+        );
+
+        doc.save(`OIKOS-Reservation-${bookingRef}.pdf`);
+      }
+
+    // Form submission handler
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        
+        if (signaturePad.isEmpty()) {
+            alert('Please sign the form before submitting.');
+            return;
+        }
+
+        const bookingRefInput = document.getElementById("booking-ref");
+        let bookingRef = bookingRefInput.value;
+        if (!bookingRef) {
+            bookingRef = "REF" + Date.now().toString().slice(-6);
+            bookingRefInput.value = bookingRef;
+        }
+
+        const modalBookingRef = document.getElementById("modalBookingRef");
+        if (modalBookingRef) {
+            modalBookingRef.textContent = bookingRef;
+        }
+
+        modal.style.display = "block";
+    });
+
+    // Download button handler
+    if (downloadBtn) {
+        downloadBtn.addEventListener("click", generatePDF);
+    }
+
+    // Close modal handlers
+    if (closeModal) {
+        closeModal.onclick = () => modal.style.display = "none";
+    }
+
+    window.onclick = (event) => {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+
+    // GCash modal functionality
+    const gcashModal = document.getElementById('gcashModal');
+    const closeGcash = document.querySelector('.close-gcash');
+    const gcashRadio = document.querySelector('input[value="gcash"]');
+
+    // Show modal when GCash is selected
+    if (gcashRadio) {
+        gcashRadio.addEventListener('change', function() {
+            if (this.checked) {
+                gcashModal.style.display = "block";
+            }
+        });
+    }
+
+    // Close modal when clicking X
+    if (closeGcash) {
+        closeGcash.onclick = function() {
+            gcashModal.style.display = "none";
+        }
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target == gcashModal) {
+            gcashModal.style.display = "none";
+        }
+    }
+
+    // Handle GCash app deep linking
+    document.querySelector('.btn-gcash').addEventListener('click', function(e) {
+        // Try to open GCash app
+        window.location.href = 'gcash://app';
+        
+        // Fallback for desktop or if app isn't installed
+        setTimeout(function() {
+            window.location.href = 'https://play.google.com/store/apps/details?id=com.globe.gcash.android';
+        }, 1000);
+    });
+});
+</script>
+ <script src="./chat-bubble.js"></script>
+</body>
+</html>

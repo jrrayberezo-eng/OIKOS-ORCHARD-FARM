@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oikos Offers</title>
+     <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./animations.css">
+    <style>
+        :root {
+            --nature-brown: #8B7355;
+            --nature-green: #90A955;
+            --light-brown: #D4C5B9;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .page-title {
+            text-align: center;
+            color: var(--nature-brown);
+            margin-bottom: 40px;
+        }
+
+        .offers-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .offer-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .offer-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .offer-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .offer-content {
+            padding: 20px;
+        }
+
+        .offer-title {
+            color: var(--nature-brown);
+            font-size: 20px;
+            margin: 0 0 10px 0;
+        }
+
+        .offer-price {
+            color: var(--nature-green);
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .offer-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .book-now-btn {
+            width: 100%;
+            background: var(--nature-green);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-now-btn:hover {
+            background: var(--nature-brown);
+        }
+
+        .back-to-home {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--nature-brown);
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+      <div class="announcement-bar">
+        <div class="announcement-content">
+            <span class="announcement-text">THE SYSTEM IS UNDERMAINTENANCE PRICE ADJUSTMENT. WE WILL REACH OUT YOU SOON</span>
+            <span class="announcement-text" aria-hidden="true"></span>
+        </div>
+    </div>
+    <a href="./Index.html" class="back-to-home">← Back to Home</a>
+    <h1 class="page-title">Our Glamping Packages</h1>
+    
+    <div class="offers-container">
+        <div class="offer-card">
+            <img src="./oikos 1.png" alt="Glamping Experience" class="offer-image">
+            <div class="offer-content">
+                <h2 class="offer-title">Deluxe Glamping Experience</h2>
+                <div class="offer-price">₱2,999/night</div>
+                <p class="offer-description">
+                    Luxury camping with fully-furnished tents, comfortable beds, private viewing deck, and nature trail access.
+                </p>
+                <button class="book-now-btn" onclick="window.location.href='./reserve-form.html'">Book Now</button>
+            </div>
+        </div>
+
+        <div class="offer-card">
+            <img src="./564251242_814594907990619_807430773854294597_n.jpg" alt="Family Package" class="offer-image">
+            <div class="offer-content">
+                <h2 class="offer-title">Family Adventure Package</h2>
+                <div class="offer-price">₱0.00/night</div>
+                <p class="offer-description">
+                    Perfect for families! Spacious tent, guided nature walks, farm-to-table meals, and children's activities.
+                </p>
+                <button class="book-now-btn" onclick="window.location.href='./reserve-form.html'">Book Now</button>
+            </div>
+        </div>
+         <div class="offer-card">
+            <img src="./564251242_814594907990619_807430773854294597_n.jpg" alt="Family Package" class="offer-image">
+            <div class="offer-content">
+                <h2 class="offer-title">Family Adventure Package</h2>
+                <div class="offer-price">₱0.00/night</div>
+                <p class="offer-description">
+                    Perfect for families! Spacious tent, guided nature walks, farm-to-table meals, and children's activities.
+                </p>
+                <button class="book-now-btn" onclick="window.location.href='./reserve-form.html'">Book Now</button>
+            </div>
+        </div>
+         <div class="offer-card">
+            <img src="./564251242_814594907990619_807430773854294597_n.jpg" alt="Family Package" class="offer-image">
+            <div class="offer-content">
+                <h2 class="offer-title">Family Adventure Package</h2>
+                <div class="offer-price">₱0.00/night</div>
+                <p class="offer-description">
+                    Perfect for families! Spacious tent, guided nature walks, farm-to-table meals, and children's activities.
+                </p>
+                <button class="book-now-btn" onclick="window.location.href='./reserve-form.html'">Book Now</button>
+            </div>
+        </div>
+         <div class="offer-card">
+            <img src="./564251242_814594907990619_807430773854294597_n.jpg" alt="Family Package" class="offer-image">
+            <div class="offer-content">
+                <h2 class="offer-title">Family Adventure Package</h2>
+                <div class="offer-price">₱0.00/night</div>
+                <p class="offer-description">
+                    Perfect for families! Spacious tent, guided nature walks, farm-to-table meals, and children's activities.
+                </p>
+                <button class="book-now-btn" onclick="window.location.href='./reserve-form.html'">Book Now</button>
+            </div>
+        </div>
+
+        <div class="offer-card">
+            <img src="./565118357_814595774657199_4259967476042408353_n.jpg" alt="Romantic Getaway" class="offer-image">
+            <div class="offer-content">
+                <h2 class="offer-title">Romantic Getaway</h2>
+                <div class="offer-price">₱0.00/night</div>
+                <p class="offer-description">
+                    Perfect for couples! Premium tent, candlelit dinner, and romantic sunrise breakfast included.
+                </p>
+                <button class="book-now-btn" onclick="window.location.href='./reserve-form.html'">Book Now</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: .95;
+    }
+    50% {
+        transform: scale(1.06);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: .95;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* utility animations */
+.float-slow {
+    animation: float 4.8s ease-in-out infinite;
+}
+
+.pulse-slow {
+    animation: pulse 1.8s ease-in-out infinite;
+}
+
+.fade-up {
+    animation: fadeUp .6s both;
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in;
+}
+
+.slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+.bounce {
+    animation: bounce 1s infinite;
+}
+
+.button-hover {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button-hover:hover {
+    background-color: #8FBC8F; /* Light green */
+    transform: scale(1.05);
+}

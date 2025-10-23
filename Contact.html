@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - OIKOS ORCHARD AND FARM</title>
+    <style>
+        :root {
+            --primary-green: #2F5233;
+            --accent-green: #90A955;
+            --earth-brown: #8B7355;
+            --cream: #F5E6D3;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .contact-info {
+            padding: 20px;
+        }
+
+        .contact-info h2 {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .newsletter-section {
+            background-color: var(--cream);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid var(--earth-brown);
+            border-radius: 25px;
+            font-size: 16px;
+        }
+
+        .subscribe-btn {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .subscribe-btn:hover {
+            background-color: var(--accent-green);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .back-to-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary-green);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+            transition: background-color 0.3s;
+        }
+
+        .back-to-home:hover {
+            background: var(--accent-green);
+        }
+
+        .back-arrow {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .subscribe-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="./Index.html" class="back-to-home">
+        <span class="back-arrow">←</span>
+        Back to Home
+    </a>
+    <div class="contact-container">
+        <div class="contact-grid">
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.1842259152263!2d123.54840449999999!3d10.001636399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33abdb51c8bad775%3A0x741fcd8d0ffe965a!2sOikos%20Orchard%20and%20Farm!5e0!3m2!1sen!2sph!4v1761189667064!5m2!1sen!2sph"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+                <div class="contact-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM12 11.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <p>Vegetable Highway, Upper Bae, Sibonga, Cebu, Philippines, Sibonga, Philippines</p>
+                </div>
+                <div class="contact-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    <p>oikosorchardfarm@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM19 12h2c0-4.97-4.03-9-9-9v2c3.87 0 7 3.13 7 7z"/>
+                    </svg>
+                    <p>0917 777 0851</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Stay updated with our latest news, events, and special offers!</p>
+            <form class="newsletter-form" id="newsletter-form" action="mailto:oikosorchardfarm@gmail.com" method="POST" enctype="text/plain">
+                <input 
+                    type="email" 
+                    name="email"
+                    class="newsletter-input" 
+                    placeholder="Enter your email address" 
+                    required
+                >
+                <button type="submit" class="subscribe-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <div id="thankYouModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="./oikos.jpg" alt="Oikos Logo" style="width: 100px; margin-bottom: 20px;">
+            <h2>Thank You for Subscribing!</h2>
+            <p>Welcome to the Oikos Orchard & Farm family.</p>
+            <p>We'll keep you updated with our latest news and offers.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.email.value;
+            const modal = document.getElementById('thankYouModal');
+            
+            // Show the modal
+            modal.style.display = "block";
+            
+            // Create mailto link
+            const mailtoLink = `mailto:oikosorchardfarm@gmail.com?subject=Newsletter Subscription&body=Please subscribe this email: ${email}`;
+            window.location.href = mailtoLink;
+            
+            // Reset form
+            this.reset();
+            
+            // Close modal when clicking X
+            document.querySelector('.close').onclick = function() {
+                modal.style.display = "none";
+            }
+            
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+            
+            // Automatically close modal after 5 seconds
+            setTimeout(function() {
+                modal.style.display = "none";
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
