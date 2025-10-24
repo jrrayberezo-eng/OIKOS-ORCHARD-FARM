@@ -96,8 +96,10 @@ document.addEventListener("DOMContentLoaded", function() {
         "9": "What activities can we enjoy during our stay?\nThere’s something for everyone!\n- Farm and forest tour\n- Tree planting (see Adopt a Tree Packages)\n- Bonfire night\n- Stargazing\n- Nature walk or picnic\n- Team-building or group activities",
         "10": "What should we bring?\nWe recommend bringing:\n- Personal toiletries\n- Insect repellent and sunscreen\n- Comfortable clothes and shoes\n- Your camera and adventurous spirit!",
         "11": "Is there Wi‑Fi?\nYes.",
-        "12": "Is Day Tour available?\nYes! Day Tour is available at Oikos Orchard & Farm! Enjoy the beauty of nature even just for a day — no overnight stay needed! Perfect for families, friends, schools, or teams who want to relax, explore, and connect with nature."
+        "12": "Is Day Tour available?\nYes! Day Tour is available at Oikos Orchard & Farm! Enjoy the beauty of nature even just for a day — no overnight stay needed! Perfect for families, friends, schools, or teams who want to relax, explore, and connect with nature.",
+        "13": "Is Day Tour available?\nWe have an on-going promo of Php 10,000 Family or Big Group Package good for 12 pax.We shall set up 2 glamping tents good for 4pax each and  2 regular tents good for 2pax each. In excess of 12pax: Php 500 add on per pax.SMALL GROUP: 2pax - 1 glamping tent Php 3500 4 pax - 1 glamping tent Php 4200. Do you want to book a reservation now? 😀",
       };
+
 
       if (!prompt || !prompt.trim()) {
         return "Please type a question or short idea. Example: \"How do I make a reservation?\" or \"What amenities are included?\"";
@@ -124,7 +126,8 @@ document.addEventListener("DOMContentLoaded", function() {
         { keys: ["tree planting", "adopt a tree", "team-building", "team building"], id: "9" },
         { keys: ["what should we bring", "bring", "pack"], id: "10" },
         { keys: ["wi-fi", "wifi", "wi fi", "is there a wi"], id: "11" },
-        { keys: ["day tour", "daytour", "day tour available"], id: "12" }
+        { keys: ["day tour", "daytour", "day tour available"], id: "12" },
+        { keys: ["Cost", "Glamping", "Price"], id: "13" }
       ];
 
       for (let m of mapping) {
