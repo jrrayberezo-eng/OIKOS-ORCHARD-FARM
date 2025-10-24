@@ -7,9 +7,47 @@ document.addEventListener("DOMContentLoaded", function() {
     var style = document.createElement('style');
     style.innerHTML = `
       #ai-chat-bubble { position: fixed; right: 20px; bottom: 20px; z-index:10000; }
-      .ai-bubble { width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-                   background:linear-gradient(135deg,#00b894,#55efc4);box-shadow:0 10px 30px rgba(0,0,0,0.15);
-                   cursor:pointer;font-weight:700;color:#fff;font-family:Inter,sans-serif; }
+      .ai-bubble { 
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #00b894, #55efc4);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .ai-logo {
+        width: 40px;
+        height: 40px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ai-logo-circle {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        animation: pulse 2s infinite ease-in-out;
+      }
+      .ai-logo-text {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        z-index: 1;
+      }
+      @keyframes pulse {
+        0% { transform: scale(0.95); opacity: 0.5; }
+        50% { transform: scale(1.05); opacity: 0.8; }
+        100% { transform: scale(0.95); opacity: 0.5; }
+      }
       .ai-window { position: fixed; right: 20px; bottom: 100px; width: 360px; max-width: calc(100% - 40px);
                    background:#fff;border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,0.2);overflow:hidden;
                    display:flex;flex-direction:column; font-family:Inter,sans-serif; z-index:10001; }
@@ -30,9 +68,21 @@ document.addEventListener("DOMContentLoaded", function() {
     var wrapper = document.createElement('div');
     wrapper.id = 'ai-chat-bubble';
     wrapper.innerHTML = `
-      <div id="ai-bubble" class="ai-bubble" role="button" title="AICHAT — Ask for an idea">AI</div>
+      <div id="ai-bubble" class="ai-bubble" role="button" title="OIKOS AI Assistant">
+        <div class="ai-logo">
+          <div class="ai-logo-circle"></div>
+          <span class="ai-logo-text">AI</span>
+        </div>
+      </div>
       <div id="ai-window" class="ai-window" style="display:none" aria-hidden="true">
-        <div class="ai-header">OIKOS-AIBOT<span class="ai-small"> — give an idea and AI will suggest</span>
+        <div class="ai-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div class="ai-logo" style="width: 24px; height: 24px;">
+              <div class="ai-logo-circle"></div>
+              <span class="ai-logo-text" style="font-size: 12px;">AI</span>
+            </div>
+            OIKOS AI Assistant
+          </div>
           <button id="ai-close" aria-label="Close" style="background:transparent;border:none;color:rgba(255,255,255,0.95);font-size:16px;cursor:pointer">✕</button>
         </div>
         <div id="ai-messages" class="ai-messages" role="log" aria-live="polite"></div>
