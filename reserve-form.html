@@ -9,7 +9,7 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.5/dist/signature_pad.umd.min.js"></script>
-<style>
+    <style>
     .back-arrow {
         position: fixed;
         top: 20px;
@@ -338,17 +338,10 @@
                         GCash
                     </label>
                     <label class="radio-container">
-<<<<<<< Updated upstream
-                        <input type="radio" name="payment-mode" value="others">
-                        Others
-                    </label>
-=======
                          <input type="radio" name="payment-mode" value="pnb">
-                        
-
+                         
                          PNB
                      </label>
->>>>>>> Stashed changes
                 </div>
                 <input type="text" id="other-payment" name="other-payment" class="elegant-input" 
                        placeholder="Specify other payment method" style="display: none;">
@@ -360,8 +353,8 @@
                     <input type="number" id="amount-paid" name="amount-paid" required class="elegant-input">
                 </div>
                 <div>
-                    <label for="amount-paid">Reference No.</label>
-                    <input type="number" id="amount-paid" name="amount-paid" required class="elegant-input">
+                    <label for="reference-no">Reference No.</label>
+                    <input type="text" id="reference-no" name="reference-no" required class="elegant-input" placeholder="Reference / Transaction No.">
                 </div>
                 <div>
                     <label for="payment-date">Date of Payment</label>
@@ -452,9 +445,7 @@
     </div>
   </div>
 </div>
-<<<<<<< Updated upstream
 
-=======
 <div id="pnbModal" class="modal">
     <div class="modal-content">
         <span class="close-pnb">&times;</span>
@@ -468,8 +459,7 @@
         </a>
     </div>
 </div>
->>>>>>> Stashed changes
-<!-- Add this modal HTML before the closing </body> tag -->
+
 <div id="gcashModal" class="modal">
     <div class="modal-content">
         <span class="close-gcash">&times;</span>
@@ -714,11 +704,18 @@ document.addEventListener("DOMContentLoaded", function () {
         closeModal.onclick = () => modal.style.display = "none";
     }
 
-    window.onclick = (event) => {
+    // Consolidated click handler for closing modals by clicking outside
+    window.addEventListener('click', function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
-    };
+        if (event.target == gcashModal) {
+            gcashModal.style.display = "none";
+        }
+        if (pnbModal && event.target == pnbModal) {
+            pnbModal.style.display = "none";
+        }
+    });
 
     // GCash modal functionality
     const gcashModal = document.getElementById('gcashModal');
@@ -737,13 +734,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Close modal when clicking X
     if (closeGcash) {
         closeGcash.onclick = function() {
-            gcashModal.style.display = "none";
-        }
-    }
-
-    // Close modal when clicking outside
-    window.onclick = function(event) {
-        if (event.target == gcashModal) {
             gcashModal.style.display = "none";
         }
     }
