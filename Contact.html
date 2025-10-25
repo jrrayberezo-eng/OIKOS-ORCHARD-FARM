@@ -232,20 +232,30 @@
         <div class="newsletter-container">
             <h2>Subscribe to Our Newsletter</h2>
             <p>Stay updated with our latest news, events, and special offers!</p>
-            <form class="newsletter-form" id="newsletter-form" action="mailto:daisylimpangog@gmail.com" method="POST" enctype="text/plain">
-                <input 
-                    type="email" 
-                    name="email"
-                    class="newsletter-input" 
-                    placeholder="Enter your email address" 
+
+            <!-- Updated: submits to Google Form response endpoint -->
+            <form id="newsletter-form-gf"
+                  action="https://docs.google.com/forms/d/e/1K5QpzxRfYNtT1gLd2YCZCmM9sJqq1AU5PoNvJZt_Zu0/formResponse"
+                  method="POST"
+                  target="hidden_iframe"
+                  class="newsletter-form">
+                <input
+                    type="email"
+                    name="entry.1892538035"
+                    class="newsletter-input"
+                    placeholder="Enter your email address"
                     required
                 >
                 <button type="submit" class="subscribe-btn">Subscribe</button>
             </form>
+
+            <!-- hidden iframe to allow background POST without navigation -->
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
         </div>
     </section>
 
-    <div id="thankYouModal" class="modal">
+    <!-- Thank-you modal (keeps your existing markup) -->
+    <div id="thankYouModal" class="modal" style="display:none;">
         <div class="modal-content">
             <span class="close">&times;</span>
             <img src="./oikos.jpg" alt="Oikos Logo" style="width: 100px; margin-bottom: 20px;">
@@ -256,38 +266,47 @@
     </div>
 
     <script>
-        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.email.value;
-            const modal = document.getElementById('thankYouModal');
-            
-            // Show the modal
-            modal.style.display = "block";
-            
-            // Create mailto link
-            const mailtoLink = `mailto:oikosorchardfarm@gmail.com?subject=Newsletter Subscription&body=Please subscribe this email: ${email}`;
-            window.location.href = mailtoLink;
-            
-            // Reset form
-            this.reset();
-            
-            // Close modal when clicking X
-            document.querySelector('.close').onclick = function() {
-                modal.style.display = "none";
-            }
-            
-            // Close modal when clicking outside
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-            
-            // Automatically close modal after 5 seconds
-            setTimeout(function() {
-                modal.style.display = "none";
-            }, 5000);
-        });
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('newsletter-form-gf');
+  const iframe = document.getElementById('hidden_iframe');
+  const modal = document.getElementById('thankYouModal');
+  const modalClose = document.querySelector('#thankYouModal .close');
+  let submitting = false;
+
+  function showModal() {
+    modal.style.display = 'block';
+    setTimeout(()=> { modal.style.display = 'none'; }, 4200);
+  }
+  if (modalClose) modalClose.addEventListener('click', ()=> modal.style.display = 'none');
+
+  // When form is submitted, the POST goes to the hidden iframe.
+  form.addEventListener('submit', function (e) {
+    // mark that we are expecting the iframe load for this submission
+    submitting = true;
+    // small timeout/guard in case iframe onload doesn't fire
+    setTimeout(()=> {
+      if (submitting) {
+        submitting = false;
+        showModal();
+        form.reset();
+      }
+    }, 3000);
+  });
+
+  // iframe onload fires after the form response; show modal only if we initiated submit
+  iframe.addEventListener('load', function () {
+    if (submitting) {
+      submitting = false;
+      showModal();
+      form.reset();
+    }
+  });
+
+  // Close modal by clicking outside
+  window.addEventListener('click', function(event) {
+    if (event.target === modal) modal.style.display = 'none';
+  });
+});
     </script>
 </body>
 </html>
